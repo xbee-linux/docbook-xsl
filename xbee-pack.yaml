@@ -19,11 +19,11 @@ dependencies:
 
 provision:
   - url:
-      from: https://github.com/docbook/xslt10-stylesheets/releases/download/release/{% version %}/docbook-xsl-nons-{% version %}.tar.bz2
-      todir: "{% xbeeSrc %}"
+      from: https://github.com/docbook/xslt10-stylesheets/releases/download/release/{{ .version }}/docbook-xsl-nons-{{ .version }}.tar.bz2
+      todir: "{{ .xbee.src }}"
   - url:
-      from: https://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-nons-{% version %}-stack_fix-1.patch
-      todir: "{% xbeeSrc %}"
+      from: https://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-nons-{{ .version }}-stack_fix-1.patch
+      todir: "{{ .xbee.src }}"
       unpack: false
 
 
@@ -31,10 +31,10 @@ build:
   - shell:
       cmds:
         - patch -Np1 -i ../docbook-xsl-nons-1.79.2-stack_fix-1.patch
-        - install -v -m755 -d {% xbeeOut %}/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2
-        - cp -v -R VERSION assembly common eclipse epub epub3 extensions fo highlighting html htmlhelp images javahelp lib manpages params profiling roundtrip slides template tests tools webhelp website xhtml xhtml-1_1 xhtml5 {% xbeeOut %}/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2
-        - ln -s VERSION {% xbeeOut %}/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2/VERSION.xsl
-        - install -v -m644 -D README {% xbeeOut %}/usr/share/doc/docbook-xsl-nons-1.79.2/README.txt
-        - install -v -m644 RELEASE-NOTES* NEWS*  {% xbeeOut %}/usr/share/doc/docbook-xsl-nons-1.79.2
-        - "{{ .templates }}/catalog.sh"
-      directory: "{% xbeeSrc %}/docbook-xsl-nons-{% version %}"
+        - install -v -m755 -d {{ .xbee.out }}/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2
+        - cp -v -R VERSION assembly common eclipse epub epub3 extensions fo highlighting html htmlhelp images javahelp lib manpages params profiling roundtrip slides template tests tools webhelp website xhtml xhtml-1_1 xhtml5 {{ .xbee.out }}/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2
+        - ln -s VERSION {{ .xbee.out }}/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2/VERSION.xsl
+        - install -v -m644 -D README {{ .xbee.out }}/usr/share/doc/docbook-xsl-nons-1.79.2/README.txt
+        - install -v -m644 RELEASE-NOTES* NEWS*  {{ .xbee.out }}/usr/share/doc/docbook-xsl-nons-1.79.2
+        - "{{ .xbee.templates }}/catalog.sh"
+      directory: "{{ .xbee.src }}/docbook-xsl-nons-{{ .version }}"
